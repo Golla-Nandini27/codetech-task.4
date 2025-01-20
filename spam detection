@@ -1,0 +1,51 @@
+# Import necessary libraries
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Step 1: Load the data (Replace with your actual dataset)
+# Assuming the dataset has 'email_text' column (email content) and 'label' column (0 for non-spam, 1 for spam)
+data = pd.read_csv('spam_email_data.csv')
+
+# Step 2: Preprocess the data
+# Using TF-IDF Vectorizer to convert text data to numerical format
+tfidf = TfidfVectorizer(stop_words='english')
+X = tfidf.fit_transform(data['email_text'])  # Convert email text to numerical features
+y = data['label']  # Labels indicating spam (1) or not spam (0)
+
+# Step 3: Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Step 4: Train the model using Multinomial Naive Bayes
+model = MultinomialNB()
+model.fit(X_train, y_train)
+
+# Step 5: Make predictions on the test set
+y_pred = model.predict(X_test)
+
+# Step 6: Evaluate the model
+# Accuracy
+accuracy = accuracy_score(y_test, y_pred)
+print(f'Accuracy: {accuracy * 100:.2f}%')
+
+# Confusion Matrix
+conf_matrix = confusion_matrix(y_test, y_pred)
+print('Confusion Matrix:')
+print(conf_matrix)
+
+# Classification Report
+class_report = classification_report(y_test, y_pred)
+print('Classification Report:')
+print(class_report)
+
+# Step 7: Visualize the confusion matrix using a heatmap
+plt.figure(figsize=(8, 6))
+sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', xticklabels=['Not Spam', 'Spam'], yticklabels=['Not Spam', 'Spam'])
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.title('Confusion Matrix')
+plt.show()
