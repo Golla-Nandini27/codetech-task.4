@@ -14,6 +14,8 @@ Overview of the project
 
 ![matrix](https://github.com/user-attachments/assets/af6c546a-0efe-4af3-bdde-b7e61894ba6e)
 
+SPAM DETECTION
+
 
 
 This project involves building and implementing a machine learning model using scikit-learn, a powerful Python library for machine learning. The primary goal of this project is to showcase how to construct, train, evaluate, and deploy a machine learning model capable of classifying or predicting outcomes from a dataset. For example, one application is building a model for spam email detection, where the goal is to distinguish between legitimate and spam emails based on various features. The project will walk through the process of selecting and preparing data, choosing an appropriate algorithm, training the model, and evaluating its performance using different metrics.
